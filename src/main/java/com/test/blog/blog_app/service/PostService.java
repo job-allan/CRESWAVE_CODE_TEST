@@ -1,5 +1,6 @@
 package com.test.blog.blog_app.service;
 
+import com.test.blog.blog_app.entity.Post;
 import com.test.blog.blog_app.payload.PostDto;
 import com.test.blog.blog_app.payload.PostResponse;
 
@@ -15,4 +16,6 @@ public interface PostService {
     PostDto updatePost(PostDto postDto, long id);
 
     void deletePostById(long id);
+
+    List<Post> searchPostsByTitle(String title);
 }

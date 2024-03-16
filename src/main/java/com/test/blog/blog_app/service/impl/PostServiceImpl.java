@@ -88,6 +88,14 @@ public class PostServiceImpl implements PostService {
         postRepository.delete(post);
     }
 
+    @Override
+    public List<Post> searchPostsByTitle(String title) {
+        List<Post> posts = postRepository.findByTitle(title);
+        return posts;
+
+
+    }
+
     // convert Entity into DTO
     private PostDto mapToDTO(Post post){
         PostDto postDto = new PostDto();

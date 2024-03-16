@@ -9,6 +9,7 @@ import com.test.blog.blog_app.repository.CommentRepository;
 import com.test.blog.blog_app.repository.PostRepository;
 import com.test.blog.blog_app.service.CommentService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,8 @@ import java.util.stream.Collectors;
 public class CommentServiceImpl implements CommentService {
     private CommentRepository commentRepository;
     private PostRepository postRepository;
+
+    @Autowired
     private ModelMapper mapper;
     public CommentServiceImpl(CommentRepository commentRepository, PostRepository postRepository, ModelMapper mapper) {
         this.commentRepository = commentRepository;

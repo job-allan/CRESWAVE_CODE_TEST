@@ -3,8 +3,10 @@ package com.test.blog.blog_app.controller;
 import com.test.blog.blog_app.payload.PostDto;
 import com.test.blog.blog_app.payload.PostResponse;
 import com.test.blog.blog_app.service.PostService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +21,7 @@ public class PostController {
     }
 
     // create blog post rest api
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto){
         return new ResponseEntity<>(postService.createPost(postDto), HttpStatus.CREATED);
@@ -42,6 +45,7 @@ public class PostController {
     }
 
     // update post by id rest api
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<PostDto> updatePost(@RequestBody PostDto postDto, @PathVariable(name = "id") long id){
 
@@ -51,6 +55,7 @@ public class PostController {
     }
 
     // delete post rest api
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletePost(@PathVariable(name = "id") long id){
 

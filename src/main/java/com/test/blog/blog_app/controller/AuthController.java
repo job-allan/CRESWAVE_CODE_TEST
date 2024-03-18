@@ -4,6 +4,8 @@ import com.test.blog.blog_app.payload.JWTAuthResponse;
 import com.test.blog.blog_app.payload.LoginDto;
 import com.test.blog.blog_app.payload.RegisterDto;
 import com.test.blog.blog_app.service.AuthService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +23,14 @@ public class AuthController {
     }
 
     // Build Login REST API
+    @Operation(
+            summary = "Login REST API",
+            description = "Login REST API is used to sign in user to the system"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 200 SUCCESS"
+    )
     @PostMapping(value = {"/login", "/signin"})
     public ResponseEntity<JWTAuthResponse> login(@RequestBody LoginDto loginDto){
         String token = authService.login(loginDto);
@@ -32,6 +42,14 @@ public class AuthController {
     }
 
     // Build Register REST API
+    @Operation(
+            summary = "Register REST API",
+            description = "Register REST API is used to onboard user to the system"
+    )
+    @ApiResponse(
+            responseCode = "201",
+            description = "Http Status 201 CREATED"
+    )
     @PostMapping(value = {"/register", "/signup"})
     public ResponseEntity<String> register(@RequestBody RegisterDto registerDto){
         String response = authService.register(registerDto);

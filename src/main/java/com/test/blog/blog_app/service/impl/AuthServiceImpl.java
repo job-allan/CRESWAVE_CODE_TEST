@@ -9,6 +9,7 @@ import com.test.blog.blog_app.repository.RoleRepository;
 import com.test.blog.blog_app.repository.UserRepository;
 import com.test.blog.blog_app.security.JwtTokenProvider;
 import com.test.blog.blog_app.service.AuthService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,6 +22,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
+@Slf4j
 public class AuthServiceImpl implements AuthService {
     private AuthenticationManager authenticationManager;
     private UserRepository userRepository;
@@ -50,6 +52,7 @@ public class AuthServiceImpl implements AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = jwtTokenProvider.generateToken(authentication);
+        log.info("User successfully authenticated. Generated token is {}", token);
 
         return token;
     }
@@ -59,11 +62,13 @@ public class AuthServiceImpl implements AuthService {
 
         // add check for username exists in database
         if(userRepository.existsByUsername(registerDto.getUsername())){
+            log.info("Username is already exists!.");
             throw new BlogAPIException(HttpStatus.BAD_REQUEST, "Username is already exists!.");
         }
 
         // add check for email exists in database
         if(userRepository.existsByEmail(registerDto.getEmail())){
+            log.info("Email is already exists!.");
             throw new BlogAPIException(HttpStatus.BAD_REQUEST, "Email is already exists!.");
         }
 
@@ -79,6 +84,7 @@ public class AuthServiceImpl implements AuthService {
         user.setRoles(roles);
 
         userRepository.save(user);
+        log.info("User registered successfully!.");
 
         return "User registered successfully!.";
     }

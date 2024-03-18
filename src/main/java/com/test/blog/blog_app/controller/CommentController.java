@@ -44,6 +44,14 @@ public class CommentController {
         return commentService.getCommentsByPostId(postId);
     }
 
+    @Operation(
+            summary = "Get comment by comment id REST API",
+            description = "Get comment by comment id REST API is used to fetch a specific comment from parent post"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 200 SUCCESS"
+    )
     @GetMapping("/posts/{postId}/comments/{id}")
     public ResponseEntity<CommentDto> getCommentById(@PathVariable(value = "postId") Long postId,
                                                      @PathVariable(value = "id") Long commentId){
